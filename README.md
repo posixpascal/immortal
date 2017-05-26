@@ -1,14 +1,16 @@
-# Immortal ⭕
+# ⭕  immortal
 
 [![Build Status](https://travis-ci.org/immortal/immortal.svg?branch=develop)](https://travis-ci.org/immortal/immortal)
-[![Coverage Status](https://coveralls.io/repos/github/immortal/immortal/badge.svg?branch=develop)](https://coveralls.io/github/immortal/immortal?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/immortal/immortal/badge.svg?branch=master)](https://coveralls.io/github/immortal/immortal?branch=master)
+[![codecov](https://codecov.io/gh/immortal/immortal/branch/master/graph/badge.svg)](https://codecov.io/gh/immortal/immortal)
 [![Go Report Card](https://goreportcard.com/badge/github.com/immortal/immortal)](https://goreportcard.com/report/github.com/immortal/immortal)
 
 A *nix cross-platform (OS agnostic) supervisor
 
 https://immortal.run/
 
-[ ![Download](https://api.bintray.com/packages/nbari/immortal/immortal/images/download.svg) ](https://bintray.com/nbari/immortal/immortal/_latestVersion)
+[![GitHub release](https://img.shields.io/github/release/immortal/immortal.svg)](https://github.com/immortal/immortal/releases)
+[![GoDoc](https://godoc.org/github.com/immortal/immortal?status.svg)](https://godoc.org/github.com/immortal/immortal)
 
 If services need to run on behalf other system user `www, nobody, www-data`,
 not `root`, **immortal** should be compiled from source for the desired
@@ -18,9 +20,12 @@ target/architecture, otherwise, this error may be returned:
 
 See more: https://golang.org/cmd/cgo/
 
-If using FreeBSD or macOS you can install using [pkg/ports](http://immortal.run/freebsd/)
-or [homebrew](http://immortal.run/mac/), for other platforms  work is in progress,
-any help for would be appreciated.
+If using [FreeBSD](https://github.com/freebsd/freebsd-ports/tree/master/sysutils/immortal)
+or [macOS](https://github.com/immortal/homebrew-tap)
+you can install using [pkg/ports](http://immortal.run/freebsd/)
+or [homebrew](http://immortal.run/mac/), for other platforms work is in
+progress, any help for making the port/package for other systems would be
+appreciated.
 
 ## Compile from source
 
@@ -127,11 +132,14 @@ Will print current status and allow to manage the services
 
     pgrep -fl "immortal -ctl"  | awk '{print $1}' | xargs watch -n .1 pstree -p
 
-# Test status using curl
+# Test status using curl & [jq](https://stedolan.github.io/jq/)
 
 status:
 
     curl --unix-socket immortal.sock http:/status -s | jq
+
+> note the single '/' https://superuser.com/a/925610/284722
+
 
 down:
 

@@ -13,15 +13,15 @@ get:
 	${GO} get
 
 build: get
-	${GO} get -u gopkg.in/yaml.v2;
+	${GO} get -u github.com/go-yaml/yaml;
 	${GO} get -u github.com/nbari/violetear;
 	${GO} get -u github.com/immortal/logrotate;
 	${GO} get -u github.com/immortal/multiwriter;
 	${GO} get -u github.com/immortal/natcasesort;
 	${GO} get -u github.com/immortal/xtime;
-	${GO} build -ldflags "-X main.version=${VERSION}" -o immortal cmd/immortal/main.go;
-	${GO} build -ldflags "-X main.version=${VERSION}" -o immortalctl cmd/immortalctl/main.go;
-	${GO} build -ldflags "-X main.version=${VERSION}" -o immortaldir cmd/immortaldir/main.go;
+	${GO} build -ldflags "-s -w -X main.version=${VERSION}" -o immortal cmd/immortal/main.go;
+	${GO} build -ldflags "-s -w -X main.version=${VERSION}" -o immortalctl cmd/immortalctl/main.go;
+	${GO} build -ldflags "-s -w -X main.version=${VERSION}" -o immortaldir cmd/immortaldir/main.go;
 
 clean:
 	${GO} clean -i
@@ -50,7 +50,7 @@ goxc:
 	$(shell echo '      "subject": "nbari"' >> $(GOXC_FILE))
 	$(shell echo '    }\n  },' >> $(GOXC_FILE))
 	$(shell echo '  "BuildSettings": {' >> $(GOXC_FILE))
-	$(shell echo '    "LdFlags": "-X main.version=${VERSION}"' >> $(GOXC_FILE))
+	$(shell echo '    "LdFlags": "-s -w -X main.version=${VERSION}"' >> $(GOXC_FILE))
 	$(shell echo '  }\n}' >> $(GOXC_FILE))
 	$(shell echo '{\n "ConfigVersion": "0.9",' > $(GOXC_FILE_LOCAL))
 	$(shell echo ' "TaskSettings": {' >> $(GOXC_FILE_LOCAL))
